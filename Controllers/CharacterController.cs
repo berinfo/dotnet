@@ -12,8 +12,8 @@ namespace dotnet.Controllers
             new Character(),
             new Character { Name = "Sam"}
         };
-        [HttpGet]
-        [Route("GetAll")]
+        [HttpGet("GetAll")]
+
         public ActionResult<List<Character>> Get()
         {
             return Ok(characters);
