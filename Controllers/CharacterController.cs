@@ -20,19 +20,19 @@ namespace dotnet.Controllers
 
         [HttpGet("GetAll")]
 
-        public async Task<ActionResult<List<Character>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<Character>>>> Get()
         {
             return Ok(await _characterService.GetAllCharacters());
         }
         // adds id parameter to route
         [HttpGet("{id}")]
-        public async Task<ActionResult<Character>> GetSignle(int id)
+        public async Task<ActionResult<ServiceResponse<Character>>> GetSignle(int id)
         {
             return Ok(await _characterService.GetCharacterById(id));
         }
         // adds new character post
         [HttpPost]
-        public async Task<ActionResult<List<Character>>> AddCharacter(Character newCharacter)
+        public async Task<ActionResult<ServiceResponse<List<Character>>>> AddCharacter(Character newCharacter)
         {
 
             return Ok(await _characterService.AddCharacter(newCharacter));
