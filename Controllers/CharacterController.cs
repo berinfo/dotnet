@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using dotnet.Services.CharacterService;
 using System.Linq;
 using System.Threading.Tasks;
+using dotnet.Dtos.Character;
 
 namespace dotnet.Controllers
 {
@@ -20,19 +21,19 @@ namespace dotnet.Controllers
 
         [HttpGet("GetAll")]
 
-        public async Task<ActionResult<ServiceResponse<List<Character>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get()
         {
             return Ok(await _characterService.GetAllCharacters());
         }
         // adds id parameter to route
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<Character>>> GetSignle(int id)
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSignle(int id)
         {
             return Ok(await _characterService.GetCharacterById(id));
         }
         // adds new character post
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<Character>>>> AddCharacter(Character newCharacter)
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> AddCharacter(AddCharacterDto newCharacter)
         {
 
             return Ok(await _characterService.AddCharacter(newCharacter));
