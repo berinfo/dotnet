@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using dotnet.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace dotnet.Controllers
 {
@@ -10,7 +11,7 @@ namespace dotnet.Controllers
     {
         private static List<Character> characters = new List<Character> {
             new Character(),
-            new Character { Name = "Sam"}
+            new Character { Id = 1, Name = "Sam"}
         };
         [HttpGet("GetAll")]
 
@@ -18,11 +19,11 @@ namespace dotnet.Controllers
         {
             return Ok(characters);
         }
-        [HttpGet]
-
-        public ActionResult<Character> GetSignle()
+        // adds id parameter to route
+        [HttpGet("{id}")]
+        public ActionResult<Character> GetSignle(int id)
         {
-            return Ok(characters[0]);
+            return Ok(characters.FirstOrDefault(c => c.Id == id));
         }
 
     }
