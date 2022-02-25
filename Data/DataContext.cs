@@ -12,5 +12,6 @@ namespace dotnet.Data
         }
         // name of table in db Characters
         public DbSet<Character> Characters { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
