@@ -5,6 +5,8 @@ using AutoMapper;
 using System.Threading.Tasks;
 using dotnet.Dtos.Character;
 using System;
+using dotnet.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace dotnet.Services.CharacterService
 {
@@ -15,8 +17,10 @@ namespace dotnet.Services.CharacterService
             new Character { Id = 1, Name = "Sam"}
         };
         private readonly IMapper _mapper;
-        public CharacterService(IMapper mapper)
+        private readonly DataContext _context;
+        public CharacterService(IMapper mapper, DataContext context)
         {
+            _context = context;
             _mapper = mapper;
         }
         public async Task<ServiceResponse<List<GetCharacterDto>>> AddCharacter(AddCharacterDto newCharacter)
@@ -49,14 +53,16 @@ namespace dotnet.Services.CharacterService
         public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters()
         {
             var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
-            serviceResponse.data = characters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
+            var dbCharacters = await _context.Characters.ToListAsync();
+            serviceResponse.data = dbCharacters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
             return serviceResponse;
         }
 
         public async Task<ServiceResponse<GetCharacterDto>> GetCharacterById(int id)
         {
             var serviceResponse = new ServiceResponse<GetCharacterDto>();
-            serviceResponse.data = _mapper.Map<GetCharacterDto>(characters.FirstOrDefault(c => c.Id == id));
+            var dbCharacter = await _context.Characters.FirstOrDefaultAsync(c => c.Id == id);
+            serviceResponse.data = _mapper.Map<GetCharacterDto>(dbCharacter);
             return serviceResponse;
         }
 
