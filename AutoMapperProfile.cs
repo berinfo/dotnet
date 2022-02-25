@@ -9,6 +9,7 @@ namespace dotnet
         public AutoMapperProfile()
         {
             CreateMap<Character, GetCharacterDto>();
+            CreateMap<AddCharacterDto, Character>();
         }
     }
 }
