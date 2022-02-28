@@ -5,9 +5,11 @@ using dotnet.Services.CharacterService;
 using System.Linq;
 using System.Threading.Tasks;
 using dotnet.Dtos.Character;
+using Microsoft.AspNetCore.Authorization;
 
 namespace dotnet.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class CharacterController : ControllerBase
